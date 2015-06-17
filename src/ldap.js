@@ -22,7 +22,7 @@ function sync(ids, entryCb, cb) {
                 client.unbind();
                 cb();
             });
-        })
+        });
     });
 }
 

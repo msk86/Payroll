@@ -50,7 +50,7 @@ var transporter = Mailer.createTransport({
     }
 });
 
-function send(email, content) {
+function send(email, content, cb) {
 
     var mailOptions = {
         from: mailConfig.from,
@@ -63,11 +63,14 @@ function send(email, content) {
         if (error) {
             console.log("Mail send to ", email, "failed by", error);
         }
+        cb();
     });
+
+    //setTimeout(cb, Math.random() * 3000);
 }
 
 module.exports = {
-    send: function (twer, salary, salaryTitle) {
-        send(twer.mail, emailTemplate(twer, salary, salaryTitle));
+    send: function (twer, salary, salaryTitle, cb) {
+        send(twer.mail, emailTemplate(twer, salary, salaryTitle), cb);
     }
 };

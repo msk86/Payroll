@@ -3,6 +3,7 @@ var XLSX = require('xlsx');
 var data = null;
 
 function open() {
+    console.log('Opening payroll.xlsx.');
     var workbook = XLSX.readFile(__dirname + '/../res/payroll.xlsx');
 
     var first_sheet_name = workbook.SheetNames[0];
@@ -29,11 +30,13 @@ function eachRow(cb) {
     });
 }
 
+function rowCount() {
+    return data.length - 1;
+}
+
 module.exports = {
     open: open,
     titles: titles,
-    eachRow: eachRow
+    eachRow: eachRow,
+    rowCount: rowCount
 };
-
-open();
-//console.log(titles());
