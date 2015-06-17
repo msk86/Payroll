@@ -59,14 +59,23 @@ function send(email, content, cb) {
         html: content
     };
 
-    transporter.sendMail(mailOptions, function (error, info) {
-        if (error) {
-            console.log("Mail send to ", email, "failed by", error);
-        }
-        cb();
-    });
+    if(process.env.NODE_ENV == 'production') {
+        transporter.sendMail(mailOptions, function (error, info) {
+            if (error) {
+                console.log("Mail send to ", email, "failed by", error);
+            }
+            cb();
+        });
+    } else {
+        setTimeout(function() {
+            console.log('To:', mailOptions.to);
+            console.log('From:', mailOptions.from);
+            console.log('Subject:', mailOptions.subject);
+            console.log('Content:', mailOptions.html);
+            cb();
+        }, Math.random() * 3000);
+    }
 
-    //setTimeout(cb, Math.random() * 3000);
 }
 
 module.exports = {
