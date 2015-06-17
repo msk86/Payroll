@@ -26,7 +26,7 @@ function titles() {
 
 function eachRow(cb) {
     data.slice(1).forEach(function(r, i) {
-        cb(removeLineBreak(r), i+3);
+        return cb(removeLineBreak(r), i+3);
     });
 }
 

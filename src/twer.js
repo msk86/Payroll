@@ -26,7 +26,6 @@ function syncAll(cb) {
 function sync(ids, cb) {
     console.log('Start sync twer...');
     ldap.sync(ids, function(entry) {
-        console.log(entry.object);
         if(/OU=(Xian|Wuhan|Beijing|Shanghai|Chengdu|China)/i.test(entry.object.distinguishedName)) {
             twers["" + entry.object.msSFU30UidNumber] = {
                 twId: entry.object.msSFU30UidNumber,
