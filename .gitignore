@@ -1,0 +1,6 @@
+ldap.json
+mail.json
+twer.json
+payroll.xlsx*
+.idea/
+node_modules
