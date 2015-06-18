@@ -20,13 +20,13 @@ function save() {
 }
 
 function syncAll(cb) {
-    sync(['*'], cb);
+    sync(['*'], cb, true);
 }
 
-function sync(ids, cb) {
+function sync(ids, cb, onlyChina) {
     console.log('Start sync twer...');
     ldap.sync(ids, function(entry) {
-        if(/OU=(Xian|Wuhan|Beijing|Shanghai|Chengdu|China)/i.test(entry.object.distinguishedName)) {
+        if(!onlyChina || /OU=(Xian|Wuhan|Beijing|Shanghai|Chengdu|China)/i.test(entry.object.distinguishedName)) {
             twers["" + entry.object.msSFU30UidNumber] = {
                 twId: entry.object.msSFU30UidNumber,
                 name: entry.object.name,
@@ -35,6 +35,7 @@ function sync(ids, cb) {
         }
     }, function() {
         console.log('Sync twer finished.');
+        save();
         cb();
     });
 }

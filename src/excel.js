@@ -24,9 +24,16 @@ function titles() {
     return removeLineBreak(data[0]);
 }
 
-function eachRow(cb) {
-    data.slice(1).forEach(function(r, i) {
-        return cb(removeLineBreak(r), i+3);
+function rows() {
+    return data.slice(1).map(function(r, i) {
+        var newRow = removeLineBreak(r);
+        if(newRow['Employee ID']) {
+            newRow['Employee ID'] = newRow['Employee ID'].trim();
+        } else {
+            newRow['Employee ID'] = '';
+        }
+        newRow.rowNumber = i + 3;
+        return newRow;
     });
 }
 
@@ -34,9 +41,10 @@ function rowCount() {
     return data.length - 1;
 }
 
+
 module.exports = {
     open: open,
     titles: titles,
-    eachRow: eachRow,
+    rows: rows,
     rowCount: rowCount
 };

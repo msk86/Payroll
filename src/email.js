@@ -51,7 +51,6 @@ var transporter = Mailer.createTransport({
 });
 
 function send(email, content, cb) {
-
     var mailOptions = {
         from: mailConfig.from,
         to: email,
@@ -60,18 +59,9 @@ function send(email, content, cb) {
     };
 
     if(process.env.NODE_ENV == 'production') {
-        transporter.sendMail(mailOptions, function (error, info) {
-            if (error) {
-                console.log("Mail send to ", email, "failed by", error);
-            }
-            cb();
-        });
+        transporter.sendMail(mailOptions, cb);
     } else {
         setTimeout(function() {
-            console.log('To:', mailOptions.to);
-            console.log('From:', mailOptions.from);
-            console.log('Subject:', mailOptions.subject);
-            console.log('Content:', mailOptions.html);
             cb();
         }, Math.random() * 3000);
     }
