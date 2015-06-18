@@ -1,2 +1,1 @@
-NODE_ENV=production node main
-pause
+node main.js true & pause

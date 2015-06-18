@@ -5,6 +5,8 @@ Email = require('./src/email');
 
 var readline = require('readline');
 
+Email.gateOpen = !!process.argv[2];
+
 var rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout

@@ -2,7 +2,6 @@ var ldap = require('ldapjs');
 var ldapOptions = require('../res/ldap.json');
 
 function sync(ids, entryCb, cb) {
-    console.log('sync:', ids);
     var client = ldap.createClient({
         url: ldapOptions.url
     });

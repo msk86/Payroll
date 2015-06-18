@@ -50,7 +50,7 @@ var transporter = Mailer.createTransport({
     }
 });
 
-function send(email, content, cb) {
+function send(email, content, gateOpen, cb) {
     var mailOptions = {
         from: mailConfig.from,
         to: email,
@@ -58,7 +58,7 @@ function send(email, content, cb) {
         html: content
     };
 
-    if(process.env.NODE_ENV == 'production') {
+    if(gateOpen) {
         transporter.sendMail(mailOptions, cb);
     } else {
         setTimeout(function() {
@@ -69,7 +69,9 @@ function send(email, content, cb) {
 }
 
 module.exports = {
+    gateOpen: false,
     send: function (twer, salary, salaryTitle, cb) {
-        send(twer.mail, emailTemplate(twer, salary, salaryTitle), cb);
+        var self = this;
+        send(twer.mail, emailTemplate(twer, salary, salaryTitle), self.gateOpen, cb);
     }
 };
