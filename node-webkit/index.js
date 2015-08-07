@@ -48,7 +48,7 @@ $(function () {
         }
 
         function noSelectedTwers() {
-            selectedTwers.length == 0
+            return selectedTwers.length == 0;
         }
 
         if (noSelectedTwers()) {
