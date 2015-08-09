@@ -16,7 +16,28 @@
             <div class="page-header">
                 <h1 class="text-center">Thoughtworks Send Payroll Email</h1>
             </div>
-            <ul class="list-inline">
+
+            <div class="panel panel-primary" id="update-sender-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Update Sender Info:</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="update-sender-email">
+                        <label>Email Address: </label>
+                        <input type="email" placeholder="email address">
+                    </div>
+                    <div class="update-sender-password">
+                        <label>Password:</label>
+                        <input type="password" placeholder="password">
+                    </div>
+                    <div class="update-button">
+                        <button type="button" class="btn btn-primary skip">Skip</button>
+                        <button type="button" class="btn btn-primary update">Update</button>
+                    </div>
+                </div>
+            </div>
+
+            <ul class="list-inline hidden" id="upload-payroll-file">
                 <li><label>Upload Payroll:</label></li>
                 <li>
                     <input type="file"

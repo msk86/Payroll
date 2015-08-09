@@ -98,4 +98,22 @@ $(function () {
                 { "data": "nameInPayroll" }
             ]});
     })
+
+    $('#update-sender-info .update-button .update').on("click", function () {
+        var email = $('#update-sender-info .update-sender-email input').val();
+        var password = $('#update-sender-info .update-sender-password input').val();
+
+        if (email == '' || password == '') {
+            window.alert("Please input correct info!");
+        } else {
+            Email.updateSenderInfo(email, password);
+            $('#update-sender-info').addClass('hidden');
+            $('#upload-payroll-file').removeClass('hidden');
+        }
+    })
+
+    $('#update-sender-info .update-button .skip').on("click", function () {
+        $('#update-sender-info').addClass('hidden');
+        $('#upload-payroll-file').removeClass('hidden');
+    })
 });

@@ -56,6 +56,31 @@
     z-index: 10;
 }
 
+#update-sender-info .update-sender-email{
+    padding: 0px 20px 10px;
+}
+
+#update-sender-info .update-sender-password{
+    padding: 10px 20px 0px;
+}
+
+#update-sender-info .update-button{
+    float: right;
+}
+
+#update-sender-info .update-button button{
+    width: 80px;
+}
+
+#update-sender-info label{
+    padding-right: 20px;
+    width: 121px;
+}
+
+#update-sender-info input{
+    border-radius: 4px;
+}
+
 ul{
     font-size: 15px;
     height: 33px;

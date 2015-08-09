@@ -1,12 +1,7 @@
+var fs = require('fs');
+var path = require ('path')
 var Mailer = require('nodemailer');
 var mailConfig = require('../config/mail.json');
-var transporter = Mailer.createTransport({
-    service: 'Gmail',
-    auth: {
-        user: mailConfig.user,
-        pass: mailConfig.pass
-    }
-});
 
 function emailTemplate(twer, salary, salaryTitle) {
 
@@ -43,7 +38,7 @@ function emailTemplate(twer, salary, salaryTitle) {
     }
 
     function techSupport() {
-        return "<p>Technical supported by Wenbo Fan.</p>";
+        return "<p>Technical supported by Wenbo Fan&Jiao Cui.</p>";
     }
 
     return "<html><body>" + greeting(twer) + '' + salaryTable(salary, salaryTitle) + techSupport() + "</body></html>";
@@ -57,10 +52,23 @@ function send(twer, salary, salaryTitle, cb) {
         html: emailTemplate(twer, salary, salaryTitle)
     };
 
+    var transporter = Mailer.createTransport({
+        service: 'Gmail',
+        auth: {
+            user: mailConfig.user,
+            pass: mailConfig.pass
+        }
+    });
+
     transporter.sendMail(mailOptions, cb);
 }
 
+function updateSenderInfo(user, password) {
+    mailConfig = {"user": user, "pass": password, "from": user}
+    fs.writeFileSync(path.resolve('config', 'mail.json'), JSON.stringify(mailConfig));
+}
 
 module.exports = {
+    updateSenderInfo: updateSenderInfo,
     send: send
 };
