@@ -1,3 +1,4 @@
+var Ldap = require('./ldap');
 var fs = require('fs');
 
 var twers = {};
@@ -22,6 +23,18 @@ function syncAll(cb) {
 }
 
 function sync(ids, cb, onlyChina) {
+    Ldap.sync(ids, function (entry) {
+        if (!onlyChina || /OU=(Xian|Wuhan|Beijing|Shanghai|Chengdu|China|EnterpriseContractors)/i.test(entry.object.distinguishedName)) {
+            twers["" + entry.object.msSFU30UidNumber] = {
+                twId: entry.object.msSFU30UidNumber,
+                name: entry.object.name,
+                mail: entry.object.mail
+            };
+        }
+    }, function () {
+        save();
+        cb();
+    });
 }
 
 function findById(id) {
@@ -40,5 +53,6 @@ function all() {
 
 module.exports = {
     findById: findById,
+    syncAll: syncAll,
     all: all
 };

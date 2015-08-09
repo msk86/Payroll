@@ -16,7 +16,6 @@
             <div class="page-header">
                 <h1 class="text-center">Thoughtworks Send Payroll Email</h1>
             </div>
-
             <div class="panel panel-primary" id="update-sender-info">
                 <div class="panel-heading">
                     <h3 class="panel-title">Update Sender Info:</h3>
@@ -36,28 +35,25 @@
                     </div>
                 </div>
             </div>
-
-            <ul class="list-inline hidden" id="upload-payroll-file">
-                <li><label>Upload Payroll:</label></li>
-                <li>
-                    <input type="file"
-                           accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"/>
-                </li>
-                <li id="send_payroll" class="pull-right hidden">
-                    <button class="btn btn-info">Send Payroll</button>
-                </li>
-            </ul>
-
-            <div id="twers_div" class="hidden">
+            <div class="hidden" id="upload-payroll">
+                <label>Upload Payroll:</label>
+                <input type="file"
+                       accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"/>
+            </div>
+            <div class="hidden" id="sync-and-send">
+                <button class="btn btn-primary" id="sync-twer">Sync Twer</button>
+                <button class="btn btn-primary" id="send-payroll">Send Payroll</button>
+            </div>
+            <div id="twers-div" class="hidden">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4>Twers:</h4>
                     </div>
                     <div class="panel-body">
-                        <table id="twers_table" class="display">
+                        <table id="twers-table" class="display">
                             <thead>
                             <tr>
-                                <th><input type="checkbox" id="select_all"></th>
+                                <th><input type="checkbox" id="select-all"></th>
                                 <th>twId</th>
                                 <th>name</th>
                                 <th>email</th>
@@ -68,7 +64,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="spinner-loader"></div>
         </div>
     </div>

@@ -20,18 +20,37 @@ function fetchTwerNameInPayroll(twer) {
     }
 }
 
+function setDataSourceToTwersTable(twers){
+    $('#twers-table').DataTable({
+        "data": $.map(twers, function (v, k) {
+            v["nameInPayroll"] = fetchTwerNameInPayroll(v);
+            return v;
+        }),
+        "columns": [
+            {
+                "data": function (twer) {
+                    return "<input type='checkbox' name='selected-twer' value='" + twer["twId"] + "'/>";
+                }
+            },
+            { "data": "twId" },
+            { "data": "name" },
+            { "data": "mail" },
+            { "data": "nameInPayroll" }
+        ]});
+}
+
 $(function () {
-    $("#select_all").on("click", function () {
-        if ($("#select_all")[0].checked == true) {
-            toggleCheckbox('selected_twer', true);
+    $("#select-all").on("click", function () {
+        if ($("#select-all")[0].checked == true) {
+            toggleCheckbox('selected-twer', true);
         } else {
-            toggleCheckbox('selected_twer', false);
+            toggleCheckbox('selected-twer', false);
         }
     });
 
-    $("#send_payroll").on("click", function () {
+    $("#send-payroll").on("click", function () {
         var sendEmailErrors = [];
-        var selectedTwers = $("input[name='selected_twer']:checked");
+        var selectedTwers = $("input[name='selected-twer']:checked");
         var alreadySend = 0;
 
         function summary() {
@@ -75,29 +94,21 @@ $(function () {
         }
     });
 
+    $("#sync-twer").on("click",function(){
+        Twers.syncAll(function(){
+            setDataSourceToTwersTable(Twers.all());
+            window.alert("Sync twers successfully!");
+        })
+    });
+
     $('input:file').on('change', function () {
         Payroll.open(this.value);
 
-        $('#twers_div').removeClass("hidden");
-        $('#send_payroll').removeClass("hidden");
+        $('#twers-div').removeClass("hidden");
+        $('#sync-and-send').removeClass("hidden");
 
-        $('#twers_table').DataTable({
-            "data": $.map(Twers.all(), function (v, k) {
-                v["nameInPayroll"] = fetchTwerNameInPayroll(v);
-                return v;
-            }),
-            "columns": [
-                {
-                    "data": function (twer) {
-                        return "<input type='checkbox' name='selected_twer' value='" + twer["twId"] + "'/>";
-                    }
-                },
-                { "data": "twId" },
-                { "data": "name" },
-                { "data": "mail" },
-                { "data": "nameInPayroll" }
-            ]});
-    })
+        setDataSourceToTwersTable(Twers.all());
+    });
 
     $('#update-sender-info .update-button .update').on("click", function () {
         var email = $('#update-sender-info .update-sender-email input').val();
@@ -108,12 +119,12 @@ $(function () {
         } else {
             Email.updateSenderInfo(email, password);
             $('#update-sender-info').addClass('hidden');
-            $('#upload-payroll-file').removeClass('hidden');
+            $('#upload-payroll').removeClass('hidden');
         }
-    })
+    });
 
     $('#update-sender-info .update-button .skip').on("click", function () {
         $('#update-sender-info').addClass('hidden');
-        $('#upload-payroll-file').removeClass('hidden');
-    })
+        $('#upload-payroll').removeClass('hidden');
+    });
 });
