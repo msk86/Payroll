@@ -81,7 +81,13 @@
     border-radius: 4px;
 }
 
-ul{
+#upload-payroll input{
+    display: inline-block;
     font-size: 15px;
-    height: 33px;
+    height: 37px;
+}
+
+#sync-and-send{
+    margin-top: -42px;
+    float: right;
 }
