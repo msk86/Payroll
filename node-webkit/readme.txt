@@ -22,4 +22,5 @@
 Grunt
 
 ####Window中如何打包成可执行的包
+Please remember add the config folder when you do the package
 Inno
