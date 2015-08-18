@@ -1,4 +1,5 @@
 var Ldap = require('./ldap');
+var path = require('path')
 var fs = require('fs');
 
 var twers = {};
@@ -10,7 +11,7 @@ try {
 }
 
 function save() {
-    fs.writeFileSync(__dirname + '../res/twer.json', JSON.stringify(twers));
+    fs.writeFileSync(path.resolve('res', 'twer.json'), JSON.stringify(twers));
 }
 
 function isEmpty() {

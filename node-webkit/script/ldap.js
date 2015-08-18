@@ -6,7 +6,10 @@ function sync(ids, entryCb, cb) {
         url: ldapOptions.url
     });
     client.bind(ldapOptions.dn, ldapOptions.password, function (err) {
-        if (err) return console.log(err);
+        if (err) {
+            window.alert("Sync twers failed: "+err);
+            return console.log(err);
+        }
 
         var filter = {
             filter: '|' + ids.map(function (id) {
@@ -15,7 +18,10 @@ function sync(ids, entryCb, cb) {
             scope: 'sub'
         };
         client.search(ldapOptions.treeBase, filter, function (err, res) {
-            if (err) return console.log(err);
+            if (err) {
+                window.alert("Sync twers failed: "+err);
+                return console.log(err);
+            }
 
             res.on('searchEntry', entryCb);
             res.on('end', function () {

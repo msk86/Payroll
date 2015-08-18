@@ -22,6 +22,7 @@ function fetchTwerNameInPayroll(twer) {
 
 function setDataSourceToTwersTable(twers){
     $('#twers-table').DataTable({
+        destroy: true,
         "data": $.map(twers, function (v, k) {
             v["nameInPayroll"] = fetchTwerNameInPayroll(v);
             return v;
